@@ -1,4 +1,6 @@
 #pragma once
+
+#include <string>
 #include <vector>
 
 namespace kdiff {
@@ -9,11 +11,15 @@ class Config {
     std::vector<wchar_t> _ignoringSymbols;
     bool _caseSensitive;
     int _returnCountDiff;
+    std::wstring _filePath1;
+    std::wstring _filePath2;
 
    public:
     Config(
-        const std::vector<std::pair<size_t, size_t>> ranges,
-        const std::vector<wchar_t> ignoringSymbols,
+        const std::wstring&& filePath1,
+        const std::wstring&& filePath2,
+        const std::vector<std::pair<size_t, size_t>>&& ranges,
+        const std::vector<wchar_t>&& ignoringSymbols,
         bool caseSensitive = false,
         int returnCountDiff = -1);
 
@@ -22,6 +28,8 @@ class Config {
     bool getCaseSensitive() const;
     int getReturnCountDiff() const;
     std::vector<wchar_t> getIgnoringSymbols() const;
+    std::wstring getFilePath1() const;
+    std::wstring getFilePath2() const;
 };
 
 }  // namespace kdiff

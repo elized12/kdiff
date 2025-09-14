@@ -4,7 +4,7 @@
 
 namespace kdiff {
 
-class Differance {
+class Difference {
    public:
     enum class DiffType : short {
         ADDED,
@@ -13,16 +13,16 @@ class Differance {
     };
 
    private:
-    std::string _line;
+    std::wstring _value;
     DiffType _info;
-    int _oldLineNumber;
-    int _newLineNumber;
 
    public:
-    Differance(const std::string& line = "",
-               const DiffType& info = DiffType::UNCHANGED,
-               int oldNumberLine = -1,
-               int newNumberLine = -1);
+    Difference(const std::wstring& value = L"", const DiffType& info = DiffType::UNCHANGED);
+    Difference(std::wstring&& value, const DiffType& info = DiffType::UNCHANGED);
+
+   public:
+    const std::wstring& getValue() const;
+    const DiffType& getType() const;
 };
 
 }  // namespace kdiff
