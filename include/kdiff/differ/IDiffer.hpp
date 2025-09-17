@@ -10,7 +10,7 @@ namespace differ {
 
 class IDiffer {
    public:
-    ~IDiffer() = default;
+    virtual ~IDiffer() = default;
 
    public:
     virtual std::vector<kdiff::Difference> getDifferences() = 0;

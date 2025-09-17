@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(file-diff VERSION 1.0 LANGUAGES CXX)
+project(kdiff VERSION 1.0 LANGUAGES CXX)
 
 set(SOURCE_DIR src)
 set(INCLUDE_DIR include)
@@ -17,8 +17,14 @@ set(DIFF_SOURCES
     ${SOURCE_DIR}/kdiff/algorithm/line/Mayer.cpp
     ${SOURCE_DIR}/kdiff/ui/DiffRender.cpp
     ${SOURCE_DIR}/kdiff/ui/RenderException.cpp
+    ${SOURCE_DIR}/kdiff/differ/line/LineDifferDecorator.cpp
+    ${SOURCE_DIR}/kdiff/differ/line/RangeDecorator.cpp
+    ${SOURCE_DIR}/kdiff/differ/line/RangeException.cpp
+    ${SOURCE_DIR}/kdiff/differ/line/CaseSensitiveDecorator.cpp
+    ${SOURCE_DIR}/kdiff/differ/line/IgnoringSymbolDecorator.cpp
+    ${SOURCE_DIR}/kdiff/differ/LineDifferFactory.cpp
 )
 
-add_executable(file-diff ${DIFF_SOURCES})
+add_executable(kdiff ${DIFF_SOURCES})
 
-target_include_directories(file-diff PRIVATE ${INCLUDE_DIR})
+target_include_directories(kdiff PRIVATE ${INCLUDE_DIR})

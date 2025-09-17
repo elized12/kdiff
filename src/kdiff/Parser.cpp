@@ -66,7 +66,7 @@ std::vector<std::pair<size_t, size_t>> Parser::parseRanges(const std::wstring& a
         std::wstring end = ranges.substr(posSeporator + 1, posEndFirstLineFile - posSeporator);
         size_t endFirstFileLine = std::stoul(end.c_str());
 
-        if (endFirstFileLine < startFirstFileLine) {
+        if (endFirstFileLine != 0 && endFirstFileLine < startFirstFileLine) {
             throw ParserException("1 : start < end");
         }
 
@@ -88,7 +88,7 @@ std::vector<std::pair<size_t, size_t>> Parser::parseRanges(const std::wstring& a
         end = ranges.substr(posSeporator2 + 1);
         size_t endSecondFileLine = std::stoul(end.c_str());
 
-        if (endSecondFileLine < startFirstFileLine) {
+        if (endSecondFileLine != 0 && endSecondFileLine < startFirstFileLine) {
             throw ParserException("2 : start < end");
         }
 
@@ -110,9 +110,19 @@ int Parser::parseReturnCountDiff(const std::wstring& arg) const {
     }
 }
 
-// TODO доделай парсинг игнорируемых символов
 std::vector<wchar_t> Parser::parseIgnoringSymbols(const std::wstring& arg) const {
-    return {};
+    const std::wstring command = L"--ignore-symbol";
+    std::wstring symbolsText = arg.substr(command.size());
+    if (0 < symbolsText.size() && symbolsText[0] != L'=') {
+        throw ParserException("Invalid syntax: expected '=' after command");
+    }
+
+    std::vector<wchar_t> symbols;
+    for (size_t i = 0; i < symbolsText.size(); i++) {
+        symbols.push_back(symbolsText[i]);
+    }
+
+    return symbols;
 }
 
 }  // namespace kdiff

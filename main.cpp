@@ -11,6 +11,7 @@
 #include "kdiff/Parser.hpp"
 #include "kdiff/ParserException.hpp"
 #include "kdiff/differ/LineDiffer.hpp"
+#include "kdiff/differ/LineDifferFactory.hpp"
 #include "kdiff/ui/DiffRender.hpp"
 
 int main(int argc, char* argv[]) {
@@ -40,8 +41,8 @@ int main(int argc, char* argv[]) {
         std::unique_ptr<std::wfstream> file1 = std::make_unique<std::wfstream>(filePath1);
         std::unique_ptr<std::wfstream> file2 = std::make_unique<std::wfstream>(filePath2);
 
-        std::unique_ptr<kdiff::differ::LineDiffer> lineDiffer = std::make_unique<kdiff::differ::LineDiffer>(config, std::move(file1), std::move(file2));
-
+        kdiff::differ::LineDifferFactory factory;
+        std::unique_ptr<kdiff::differ::LineDiffer> lineDiffer = factory.create(config, std::move(file1), std::move(file2));
         std::vector<kdiff::Difference> differences = lineDiffer->getDifferences();
 
         kdiff::ui::DiffRender render;

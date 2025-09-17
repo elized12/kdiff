@@ -9,11 +9,11 @@ std::vector<kdiff::Difference> Mayer::getDifferences(
     std::vector<std::wstring>& fileLines1,
     std::vector<std::wstring>& fileLines2) const {
     std::vector<size_t> lineHashes1(fileLines1.size());
-    std::vector<size_t> lineHashes2(fileLines2.size());
-
     for (size_t i = 0; i < fileLines1.size(); i++) {
         lineHashes1[i] = std::hash<std::wstring>{}(fileLines1[i]);
     }
+
+    std::vector<size_t> lineHashes2(fileLines2.size());
     for (size_t i = 0; i < fileLines2.size(); i++) {
         lineHashes2[i] = std::hash<std::wstring>{}(fileLines2[i]);
     }

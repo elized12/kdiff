@@ -16,10 +16,10 @@ class Config {
 
    public:
     Config(
-        const std::wstring&& filePath1,
-        const std::wstring&& filePath2,
-        const std::vector<std::pair<size_t, size_t>>&& ranges,
-        const std::vector<wchar_t>&& ignoringSymbols,
+        std::wstring&& filePath1,
+        std::wstring&& filePath2,
+        std::vector<std::pair<size_t, size_t>>&& ranges,
+        std::vector<wchar_t>&& ignoringSymbols,
         bool caseSensitive = false,
         int returnCountDiff = -1);
 
