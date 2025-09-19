@@ -7,8 +7,9 @@ set(INCLUDE_DIR include)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+option(BUILD_TESTS "Build the tests" ON)
+
 set(DIFF_SOURCES
-    main.cpp
     ${SOURCE_DIR}/kdiff/Config.cpp
     ${SOURCE_DIR}/kdiff/Difference.cpp
     ${SOURCE_DIR}/kdiff/Parser.cpp
@@ -25,6 +26,16 @@ set(DIFF_SOURCES
     ${SOURCE_DIR}/kdiff/differ/LineDifferFactory.cpp
 )
 
-add_executable(kdiff ${DIFF_SOURCES})
+add_library(kdiff_lib STATIC ${DIFF_SOURCES})
+target_include_directories(kdiff_lib PRIVATE ${INCLUDE_DIR})
+
+add_executable(kdiff main.cpp)
 
 target_include_directories(kdiff PRIVATE ${INCLUDE_DIR})
+
+target_link_libraries(kdiff PUBLIC kdiff_lib)
+
+if (BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif() 

@@ -95,8 +95,12 @@ std::vector<std::pair<size_t, size_t>> Parser::parseRanges(const std::wstring& a
         result.emplace_back(startSecondFileLine, endSecondFileLine);
 
         return result;
-    } catch (const ParserException& ex) {
+    } catch (const std::invalid_argument& ex) {
+        throw ParserException("invalidate parametrs --ranges");
+    } catch (const kdiff::ParserException& ex) {
         throw ex;
+    } catch (...) {
+        throw ParserException("invalidate parametrs --ranges");
     }
 }
 
@@ -105,7 +109,7 @@ int Parser::parseReturnCountDiff(const std::wstring& arg) const {
 
     try {
         return std::stoul(arg.substr(command.size() + 1).c_str());
-    } catch (const std::exception& ex) {
+    } catch (const std::invalid_argument& ex) {
         throw ParserException("invalidate parametrs --count-diff");
     }
 }
@@ -118,7 +122,7 @@ std::vector<wchar_t> Parser::parseIgnoringSymbols(const std::wstring& arg) const
     }
 
     std::vector<wchar_t> symbols;
-    for (size_t i = 0; i < symbolsText.size(); i++) {
+    for (size_t i = 1; i < symbolsText.size(); i++) {
         symbols.push_back(symbolsText[i]);
     }
 
