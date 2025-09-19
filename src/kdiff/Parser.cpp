@@ -104,7 +104,7 @@ int Parser::parseReturnCountDiff(const std::wstring& arg) const {
     const std::wstring command = L"--count-diff";
 
     try {
-        return std::stoul(arg.substr(command.size()).c_str());
+        return std::stoul(arg.substr(command.size() + 1).c_str());
     } catch (const std::exception& ex) {
         throw ParserException("invalidate parametrs --count-diff");
     }

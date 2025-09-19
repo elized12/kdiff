@@ -3,8 +3,15 @@
 namespace kdiff {
 namespace ui {
 
-void DiffRender::render(const std::vector<kdiff::Difference>& differances) const {
-    for (size_t i = 0; i < differances.size(); i++) {
+void DiffRender::render(const std::vector<kdiff::Difference>& differances, long long countDiff) const {
+    long long differencesSize;
+    if (countDiff == 0) {
+        differencesSize = differances.size();
+    } else {
+        differencesSize = std::min(static_cast<long long>(differances.size()), countDiff);
+    }
+
+    for (size_t i = 0; i < differencesSize; i++) {
         switch (differances[i].getType()) {
             case kdiff::Difference::DiffType::ADDED:
                 this->renderAddedLine(differances[i]);

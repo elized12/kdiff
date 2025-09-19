@@ -18,7 +18,7 @@ class DiffRender {
     };
 
    public:
-    void render(const std::vector<kdiff::Difference>& differances) const;
+    void render(const std::vector<kdiff::Difference>& differances, long long countDiff) const;
 
    private:
     inline void renderAddedLine(const kdiff::Difference& differance) const;

@@ -54,8 +54,8 @@ std::vector<kdiff::Difference> Mayer::getDifferences(
 
             historyDiagonalPosX[countEdits][diagonal] = x;
 
-            if (x == static_cast<long long>(fileLines1.size()) &&
-                y == static_cast<long long>(fileLines2.size())) {
+            if ((x == static_cast<long long>(fileLines1.size()) &&
+                 y == static_cast<long long>(fileLines2.size()))) {
                 foundSolution = true;
                 break;
             }
@@ -90,9 +90,10 @@ std::vector<kdiff::Difference> Mayer::backtrack(
     long long countEdits,
     const std::vector<size_t>& hashes1,
     const std::vector<size_t>& hashes2) const {
+    long long x = static_cast<long long>(fileLines1.size());
+    long long y = static_cast<long long>(fileLines2.size());
+
     std::vector<kdiff::Difference> results;
-    long long x = fileLines1.size();
-    long long y = fileLines2.size();
 
     for (long long d = countEdits; d > 0; d--) {
         long long k = x - y;

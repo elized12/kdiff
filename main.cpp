@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
         std::vector<kdiff::Difference> differences = lineDiffer->getDifferences();
 
         kdiff::ui::DiffRender render;
-        render.render(differences);
+        render.render(differences, config.getReturnCountDiff());
 
     } catch (const kdiff::ParserException& ex) {
         std::cout << "\033[31mError : " << ex.what() << std::endl;
