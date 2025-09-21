@@ -5,7 +5,7 @@ namespace ui {
 
 void DiffRender::render(const std::vector<kdiff::Difference>& differances, long long countDiff) const {
     long long differencesSize;
-    if (countDiff == 0) {
+    if (countDiff <= 0) {
         differencesSize = differances.size();
     } else {
         differencesSize = std::min(static_cast<long long>(differances.size()), countDiff);

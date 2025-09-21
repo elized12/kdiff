@@ -7,6 +7,10 @@ set(INCLUDE_DIR include)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
 option(BUILD_TESTS "Build the tests" ON)
 
 set(DIFF_SOURCES
@@ -39,3 +43,14 @@ if (BUILD_TESTS)
     enable_testing()
     add_subdirectory(test)
 endif() 
+
+#Installation
+
+install(TARGETS kdiff
+    RUNTIME DESTINATION bin
+)
+
+install(FILES bash/kdiff_completion.bash
+    DESTINATION etc/bash_completion.d
+    RENAME kdiff
+)
